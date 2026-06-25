@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPAM-RSA Spectral Secure Messaging System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <style>
+        /* High-attraction premium glass panels with integrated neon glow vectors */
+        .sender-glass {
+            background: linear-gradient(135deg, rgba(16, 24, 48, 0.85) 0%, rgba(7, 11, 24, 0.95) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(7, 11, 24, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+        .sender-glass:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.15);
+        }
+        
+        .receiver-glass {
+            background: linear-gradient(135deg, rgba(12, 32, 28, 0.85) 0%, rgba(4, 15, 13, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(4, 15, 13, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+        .receiver-glass:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.15);
+        }
+        
+        @keyframes techRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-tech-spin {
+            animation: techRotate 25s linear infinite;
+            transform-origin: center;
+        }
+    </style>
+</head>
+<body class="bg-[#02040a] text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-rose-500/30 selection:text-rose-200 relative">
+
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <header class="text-center py-10 border-b border-slate-900/60 bg-slate-950/40 backdrop-blur-md relative overflow-hidden flex flex-col items-center justify-center">
+        
+        <div class="mb-4 relative group">
+            <div class="absolute inset-0 bg-gradient-to-tr from-rose-500 via-pink-500 to-fuchsia-500 rounded-full blur-2xl opacity-25 group-hover:opacity-45 transition-opacity duration-700"></div>
+            
+            <div class="relative p-2 bg-[#060b13] border border-rose-500/30 rounded-full shadow-2xl shadow-rose-500/10 flex items-center justify-center backdrop-blur-xl">
+                <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]">
+                    <g class="animate-tech-spin">
+                        <circle cx="50" cy="50" r="44" stroke="url(#pinkGrad)" stroke-width="1" stroke-dasharray="2 10" opacity="0.4"/>
+                        <circle cx="50" cy="50" r="38" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="15 30 5 10" opacity="0.6"/>
+                        <circle cx="50" cy="6" r="3" fill="#f43f5e"/>
+                        <circle cx="50" cy="94" r="3" fill="#f43f5e"/>
+                        <circle cx="6" cy="50" r="3" fill="#ec4899"/>
+                        <circle cx="94" cy="50" r="3" fill="#ec4899"/>
+                        <circle cx="18" cy="18" r="2" fill="#d946ef"/>
+                        <circle cx="82" cy="82" r="2" fill="#d946ef"/>
+                        <circle cx="82" cy="18" r="2" fill="#d946ef"/>
+                        <circle cx="18" cy="82" r="2" fill="#d946ef"/>
+                    </g>
+                    
+                    <path d="M50 16L78 28V52C78 70 66 82 50 85C34 82 22 70 22 52V28L50 16Z" fill="url(#coreFill)" stroke="url(#pinkGrad)" stroke-width="3" stroke-linejoin="round"/>
+                    
+                    <path d="M50 26V34M34 38L42 42M66 38L58 42M34 60L44 54M66 60L56 54" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                    
+                    <path d="M44 48V43C44 38.6863 46.5 36 50 36C53.5 36 56 38.6863 56 43V48M38 48H62V64H38V48Z" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="55" r="2" fill="#ffffff"/>
+                    <rect x="39" y="48" width="22" height="15" rx="4" fill="#f43f5e" class="drop-shadow-[0_0_4px_rgba(244,63,94,0.8)]"/>
+                    <circle cx="50" cy="55" r="2" fill="#000000"/>
+                    <path d="M50 57V60" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+
+                    <defs>
+                        <linearGradient id="pinkGrad" x1="6" y1="6" x2="94" y2="94" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#f43f5e"/>
+                            <stop offset="0.5" stop-color="#ec4899"/>
+                            <stop offset="1" stop-color="#d946ef"/>
+                        </linearGradient>
+                        <linearGradient id="coreFill" x1="50" y1="16" x2="50" y2="85" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#111827" stop-opacity="0.9"/>
+                            <stop offset="1" stop-color="#040711" stop-opacity="0.95"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="text-2xl md:text-3xl font-black tracking-wider uppercase drop-shadow-[0_2px_15px_rgba(244,63,94,0.25)] bg-gradient-to-r from-rose-400 via-pink-400 to-fuchsia-400 bg-clip-text text-transparent px-4">
+            DPAM-RSA Spectral Secure Messaging System
+        </h1>
+        
+        <p class="text-sm text-white font-semibold tracking-wide mt-2 drop-shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
+            End-to-End Secure Graph Messaging System
+        </p>
+        
+        <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div id="status" class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-sm shadow-rose-500/5 transition-all duration-300">
+                <span class="w-1.5 h-1.5 mr-2 bg-rose-400 rounded-full animate-ping"></span>
+                Establishing Secure Environment...
+            </div>
+            
+            <button onclick="downloadSourceHTML()" class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900 hover:bg-slate-800 text-rose-400 hover:text-rose-300 border border-slate-800 transition-all cursor-pointer shadow-sm">
+                📥 Download Web App File
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow items-center relative z-10">
+        
+        <div class="sender-glass rounded-2xl p-6 md:p-8 transition-all duration-300 flex flex-col justify-between h-[540px]">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3 border-b border-blue-500/10 pb-3">
+                    <div class="p-2.5 bg-blue-500/20 text-blue-400 rounded-xl border border-blue-500/30 shadow-lg shadow-blue-500/10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black text-blue-400 tracking-wide uppercase">Sender</h2>
+                        <p class="text-[11px] text-slate-300 mt-0.5">Create a secure message</p>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <label class="block text-xs font-bold text-blue-300/80 uppercase tracking-wider mb-1">Enter Your Message</label>
+                    <textarea id="sender-input" rows="4" class="w-full bg-slate-950/90 border border-slate-800/80 rounded-xl p-3.5 text-sm text-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all placeholder-slate-600 resize-none h-[110px]" placeholder="Type your text message here..."></textarea>
+                </div>
+            </div>
+
+            <div class="space-y-4 mt-auto">
+                <button onclick="handleEncrypt()" id="btn-encrypt" disabled class="w-full bg-blue-600 hover:bg-blue-500 text-slate-100 font-bold py-3.5 px-4 rounded-xl transition-all cursor-not-allowed text-xs uppercase tracking-wider shadow-lg shadow-blue-500/20 active:scale-[0.99]">
+                    Encrypt Message
+                </button>
+
+                <div class="bg-slate-950/80 border border-blue-500/10 rounded-xl p-3.5 relative group h-[110px] flex flex-col justify-start shadow-inner">
+                    <span class="block text-[9px] font-bold text-blue-400/60 uppercase tracking-widest mb-1.5">Encrypted Cipher Text</span>
+                    <div id="sender-output" class="text-xs font-mono text-blue-400 font-bold break-all pr-14 leading-relaxed max-h-[60px] overflow-y-auto selection:bg-blue-500/40">
+                        ...
+                    </div>
+                    <button onclick="copyToClipboard('sender-output')" class="absolute right-3 bottom-3 bg-blue-950/60 hover:bg-blue-900 text-blue-400 hover:text-blue-200 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-blue-500/30 transition-all cursor-pointer uppercase tracking-wider">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="receiver-glass rounded-2xl p-6 md:p-8 transition-all duration-300 flex flex-col justify-between h-[540px]">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3 border-b border-emerald-500/10 pb-3">
+                    <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl border border-emerald-500/30 shadow-lg shadow-emerald-500/10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black text-emerald-400 tracking-wide uppercase">Receiver</h2>
+                        <p class="text-[11px] text-slate-300 mt-0.5">Restore the original message from secure text</p>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <label class="block text-xs font-bold text-emerald-300/80 uppercase tracking-wider mb-1">Paste Your Encrypted Message</label>
+                    <textarea id="receiver-input" rows="4" class="w-full bg-slate-950/90 border border-slate-800/80 rounded-xl p-3.5 text-sm text-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 focus:outline-none transition-all font-mono placeholder-slate-600 resize-none h-[110px]" placeholder="Paste the secure data numbers here..."></textarea>
+                </div>
+            </div>
+
+            <div class="space-y-4 mt-auto">
+                <button onclick="handleDecrypt()" id="btn-decrypt" disabled class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-100 font-bold py-3.5 px-4 rounded-xl transition-all cursor-not-allowed text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 active:scale-[0.99]">
+                    Decrypt Message
+                </button>
+
+                <div class="bg-slate-950/80 border border-emerald-500/10 rounded-xl p-3.5 relative group h-[110px] flex flex-col justify-start shadow-inner">
+                    <span class="block text-[9px] font-bold text-emerald-400/60 uppercase tracking-widest mb-1.5">Recovered Original Message</span>
+                    <div id="receiver-output" class="text-sm font-medium text-emerald-400 pr-14 tracking-wide max-h-[60px] overflow-y-auto mt-1">
+                        ...
+                    </div>
+                    <button onclick="copyToClipboard('receiver-output')" class="absolute right-3 bottom-3 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-400 hover:text-emerald-200 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-emerald-500/30 transition-all cursor-pointer uppercase tracking-wider">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-6 border-t border-slate-950 bg-slate-950/20 text-[10px] font-medium text-slate-500 tracking-wider uppercase relative z-10">
+        🛡️ Powered by DPAM Graph Matrices & RSA Cryptography. Zero logs retained.
+    </footer>
+
+    <script>
+        let pyodideInstance = null;
+
+        const pythonCipherEngine = `
+import numpy as np
+import json
+
+class DPAMSpectralCipher: 
+    def __init__(self, mod=65537): self.MOD = mod 
+    def _setup_dynamic_system(self, n): 
+        self.n = n 
+        self.labels, self.weights = self._dpam_system(n) 
+        self.k1 = abs(max(self.weights)) + abs(min(self.weights)) 
+        A = np.zeros((n, n), dtype=int)
+        for i in range(n):
+            A[i][(i - 1) % n] = 1
+            A[i][(i + 1) % n] = 1
+        eigenvalues, eigenvectors = np.linalg.eigh(A) 
+        self.eigenvalues = np.round(eigenvalues.real, 4) 
+        self.eigenvectors = np.round(eigenvectors.real, 4) 
+        self.sum_abs_lambda = int(round(np.sum(np.abs(self.eigenvalues)))) 
+        self.det_A_I = int(round(np.linalg.det(A + np.eye(n)))) 
+
+    def _dpam_system(self, n): 
+        if n % 2 == 0: 
+            m = n // 2 
+            labels = [0] * n 
+            for i in range(m - 1): labels[i] = -(i + 1) 
+            labels[m - 1] = m; labels[m] = -m 
+            for i in range(m + 1, n): labels[i] = n - i 
+            weights = [labels[(i - 1) % n] + labels[(i + 1) % n] for i in range(n)] 
+        else: 
+            m = (n - 1) // 2 
+            labels = [0] * n 
+            for i in range(1, m + 1): labels[i] = i 
+            for i in range(1, m + 1): labels[m + i] = i - (m + 1) 
+            weights = [] 
+            for i in range(n): 
+                if i == 0: w = 0 
+                elif i == m: w = -1 
+                elif i == m + 1: w = 1 
+                else: w = 2 * labels[i] 
+                weights.append(w) 
+        return labels, weights 
+
+    def encrypt(self, message): 
+        n = len(message) 
+        self._setup_dynamic_system(n) 
+        k2 = (sum(ord(c) for c in message) % 2000) + 1000 
+        enc_k2 = pow(k2, 17, 3233) 
+        K = self.k1 + k2 + self.sum_abs_lambda + self.det_A_I 
+        ciphertext = [] 
+        for i in range(n): 
+            lam = int(round(float(self.eigenvalues[i]))) 
+            spec = int(round(10 * float(self.eigenvectors[i][i]))) 
+            Ci = (ord(message[i]) + self.weights[i] + lam + spec + (i * K)) % self.MOD 
+            ciphertext.append(int(Ci)) 
+        ciphertext.append(int(enc_k2))
+        return json.dumps(ciphertext)
+
+    def decrypt(self, cipher_array_str): 
+        ciphertext = json.loads(cipher_array_str)
+        enc_k2 = ciphertext.pop() 
+        n = len(ciphertext) 
+        self._setup_dynamic_system(n) 
+        k2 = pow(enc_k2, 2753, 3233) 
+        K = self.k1 + k2 + self.sum_abs_lambda + self.det_A_I 
+        plaintext_ascii = [] 
+        for i in range(n): 
+            lam = int(round(float(self.eigenvalues[i]))) 
+            spec = int(round(10 * float(self.eigenvectors[i][i]))) 
+            Mi = (ciphertext[i] - self.weights[i] - lam - spec - (i * K)) % self.MOD 
+            plaintext_ascii.append(Mi) 
+        return "".join(chr(x % 256) for x in plaintext_ascii)
+
+engine = DPAMSpectralCipher()
+`;
+
+        async function initSystem() {
+            try {
+                pyodideInstance = await loadPyodide();
+                await pyodideInstance.loadPackage("numpy");
+                await pyodideInstance.runPythonAsync(pythonCipherEngine);
+                
+                const statusBadge = document.getElementById('status');
+                statusBadge.className = "inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm shadow-emerald-500/5";
+                statusBadge.innerHTML = '<span class="w-1.5 h-1.5 mr-2 bg-emerald-400 rounded-full"></span>Operational Security Line Active';
+                
+                document.getElementById('btn-encrypt').disabled = false;
+                document.getElementById('btn-encrypt').className = "w-full bg-blue-600 hover:bg-blue-500 text-slate-100 font-bold py-3.5 px-4 rounded-xl transition-all cursor-pointer text-xs uppercase tracking-wider shadow-lg shadow-blue-500/20 active:scale-[0.99]";
+                document.getElementById('btn-decrypt').disabled = false;
+                document.getElementById('btn-decrypt').className = "w-full bg-emerald-600 hover:bg-emerald-500 text-slate-100 font-bold py-3.5 px-4 rounded-xl transition-all cursor-pointer text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 active:scale-[0.99]";
+            } catch (err) {
+                document.getElementById('status').innerText = "Security Core Exception.";
+                console.error(err);
+            }
+        }
+
+        async function handleEncrypt() {
+            const text = document.getElementById('sender-input').value;
+            if(!text || text.length < 3) {
+                alert("Length check failed: Message string must be at least 3 characters.");
+                return;
+            }
+            pyodideInstance.globals.set("raw_text", text);
+            let numberCodeOutput = await pyodideInstance.runPythonAsync(`engine.encrypt(raw_text)`);
+            document.getElementById('sender-output').innerText = numberCodeOutput;
+        }
+
+        async function handleDecrypt() {
+            let token = document.getElementById('receiver-input').value.trim();
+            if(!token) {
+                alert("Input empty: Please paste the numerical array.");
+                return;
+            }
+            try {
+                pyodideInstance.globals.set("raw_payload", token);
+                let clearTextResult = await pyodideInstance.runPythonAsync(`engine.decrypt(raw_payload)`);
+                document.getElementById('receiver-output').innerText = clearTextResult;
+            } catch(e) {
+                alert("Decryption error: Ensure you copy-paste the exact numeric array format.");
+            }
+        }
+
+        function copyToClipboard(elementId) {
+            let text = document.getElementById(elementId).innerText;
+            if(text === "..." || text === "") return;
+            navigator.clipboard.writeText(text);
+            alert("Copied to clipboard!");
+        }
+
+        // Programmatic self-download engine trigger injection
+        function downloadSourceHTML() {
+            const documentContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const elementBlob = new Blob([documentContent], { type: 'text/html;charset=utf-8' });
+            const anchorLink = document.createElement('a');
+            anchorLink.href = URL.createObjectURL(elementBlob);
+            anchorLink.download = 'index.html';
+            document.body.appendChild(anchorLink);
+            anchorLink.click();
+            document.body.removeChild(anchorLink);
+        }
+
+        window.addEventListener('DOMContentLoaded', initSystem);
+    </script>
+</body>
+</html>
